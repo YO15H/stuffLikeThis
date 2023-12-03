@@ -24,14 +24,17 @@ fun <T> List<T>.last2(): T {
     val listLenght=this.size
     return this.get(listLenght-1)
 }
-fun <T> List<T>.lastOrNull2(): T? {
-    val listLenght =this.size
-    if(!this.isEmpty()) return this[listLenght-1]
+fun <T> List<T>.lastOrNull2(predicate: (T) -> Boolean): T? {
+    var lastOne: T? = null
+    for (element in this) {
+        if (predicate(element)) {
+            lastOne = element
+        }
 
-    return null
-
+    }
+    return lastOne
 }
-fun <T> List<T>.first2(): T {
+    fun <T> List<T>.first2(): T {
     return this.get(0)
 }
 fun <T> List<T>.firstOrNull2(): T? {
@@ -102,7 +105,7 @@ fun <T> List<T>.all2(predicate: (T) -> Boolean): Boolean {
         val  result3 = heroes.last2()
         println(" the result of last   ${result3?.name}")
 
-        val  result4= emptyList.lastOrNull2()
+        val  result4= emptyList.lastOrNull2{it.age<30}
         println(" the result of last or null should be null  ${result4?.name}")
 
         val  result5 = heroes.map2{it.age*2}.distinct2()
