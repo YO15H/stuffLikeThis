@@ -118,7 +118,6 @@ fun <T> List<T>.all2(predicate: (T) -> Boolean): Boolean {
 
 
 
-
     }
 
 
