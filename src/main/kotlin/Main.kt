@@ -10,6 +10,16 @@ fun <T,R> List<T>.map2(func: (T) -> R): List<R> {
     return list1
 }
 
+fun <T,R> List<T>.maxBy2(func2:(List<R>)->R): R {
+    var max=
+    for (element in this) {
+        if()
+    }
+
+return max
+}
+
+
 fun <T> List<T>.last2(): T {
     val listLenght=this.size
     return this.get(listLenght-1)
@@ -43,39 +53,32 @@ fun <T> List<T>.distinct2(): List<T> {
 
 
 
-fun <T> List<T>.partition2(predicate: (T) -> Boolean):Pair<MutableList<T>,MutableList<T>>  {
-    var (x, y) = Pair(mutableListOf<T>(), mutableListOf<T>())
+fun <T> List<T>.partition2(predicate: (T) -> Boolean):Pair<MutableList<T>,MutableList<T> >  {
+    var p = Pair(mutableListOf<T>(), mutableListOf<T>())
 
     for (element in this) {
-        if (predicate(element)) x.add(element) else y.add(element)
+        if (predicate(element)) p.first.add(element) else p.second.add(element)
 
     }
-    return Pair (x,y)
+    return  p
 }
 fun <T> List<T>.all2(predicate: (T) -> Boolean): Boolean {
 
     for (element in this) {
-        if (!predicate(element)){
+        if (!predicate(element)) {
             return false
         }
-        return true
-    }
-    fun <T,R> List<T>.maxBy2(li: List<R>): R {
-        var max:R=li.get(0)
-        for (element in li) {
-            if (max<element) {
-                max=element
-            }
 
-        }
-        return max
     }
+    return true
+}
+
     enum class Gender{MALE,FEMALE}
-
-    class Hero(
+   data  class Hero(
         val name: String,
         val age: Int,
         val gender: Gender?
+
 
     )
 
@@ -89,18 +92,36 @@ fun <T> List<T>.all2(predicate: (T) -> Boolean): Boolean {
             Hero("First Mate",29,Gender.MALE),
             Hero("Sir Stephen",37,Gender.MALE),
         )
+        val emptyList = listOf<Hero>()
+        val  result1 = heroes.first2()
+        println(" the result of first  ${result1?.name}")
 
+        val  result2 = heroes.firstOrNull2()
+        println(" the result of first or null  ${result2?.name}")
+
+        val  result3 = heroes.last2()
+        println(" the result of last   ${result3?.name}")
+
+        val  result4= emptyList.lastOrNull2()
+        println(" the result of last or null should be null  ${result4?.name}")
 
         val  result5 = heroes.map2{it.age*2}.distinct2()
-        println(" the result of mapping the age * 2 $result5")
+        println(" the result of map and distinct $result5")
 
-        val  result6 = heroes.last2()
-        println(" the result of last  $result6")
+        val  result6 = heroes.all2{it.age<30}
+        println(" all younger then 30: $result6")
 
-        val emptyList = listOf<Hero>()
+        val  result7 = heroes.maxBy2(it.age)
+        println(" all younger then 30: $result7")
 
-        val  result7 = emptyList.lastOrNull2 ()
-        println(" the result of last for emptyList is  $result7")
+
+        val  p:Pair( MutableList<hero>, MutableList<hero>) = heroes.partition2{it.age<30}()
+
+
+        println(" the result of last   ${p}")
+        println(" the result of last  ${p.second.name}")
 
 
     }
+
+
