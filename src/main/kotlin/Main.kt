@@ -1,4 +1,4 @@
-import java.util.function.BiPredicate
+import java.util.NoSuchElementException
 
 
 //i changed it
@@ -20,9 +20,21 @@ fun <T,R> List<T>.map2(func: (T) -> R): List<R> {
 //}
 
 
-fun <T> List<T>.last2(): T {
-    val listLenght=this.size
-    return this.get(listLenght-1)
+fun <T> List<T>.last2(predicate: ((T) -> Boolean)?=null): T {
+   var lastOne:T?=null
+    if(predicate==null){
+        return this[this.size-1]
+    }else {
+        for (element in this) {
+            if (predicate(element)) {
+                lastOne = element
+            }
+
+        }
+
+    }
+    if(lastOne==null) return  throw NoSuchElementException() else return lastOne
+
 }
 fun <T> List<T>.lastOrNull2(predicate: (T) -> Boolean): T? {
     var lastOne: T? = null
@@ -34,11 +46,25 @@ fun <T> List<T>.lastOrNull2(predicate: (T) -> Boolean): T? {
     }
     return lastOne
 }
-    fun <T> List<T>.first2(): T {
-    return this.get(0)
+    fun <T> List<T>.first2(predicate: ((T) -> Boolean)?=null ): T {
+        if(predicate==null){
+            return this[0]
+        }else{
+            for (element in this) {
+                if (predicate(element)) {
+                    return  element
+                }
+            }
+        }
+        return  throw NoSuchElementException()
 }
-fun <T> List<T>.firstOrNull2(): T? {
-    if(!this.isEmpty()) return this[0]
+fun <T> List<T>.firstOrNull2(predicate: (T) -> Boolean): T? {
+
+    for (element in this) {
+        if (predicate(element)) {
+         return  element
+        }
+    }
     return null
 
 }
@@ -96,13 +122,13 @@ fun <T> List<T>.all2(predicate: (T) -> Boolean): Boolean {
             Hero("Sir Stephen",37,Gender.MALE),
         )
         val emptyList = listOf<Hero>()
-        val  result1 = heroes.first2()
+        val  result1 = heroes.first2 ()
         println(" the result of first  ${result1?.name}")
 
-        val  result2 = heroes.firstOrNull2()
+        val  result2 = heroes.firstOrNull2{it.age<30}
         println(" the result of first or null  ${result2?.name}")
 
-        val  result3 = heroes.last2()
+        val  result3 = heroes.last2 ()
         println(" the result of last   ${result3?.name}")
 
         val  result4= emptyList.lastOrNull2{it.age<30}
