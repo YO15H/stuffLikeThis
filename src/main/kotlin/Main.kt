@@ -10,14 +10,14 @@ fun <T,R> List<T>.map2(func: (T) -> R): List<R> {
     return list1
 }
 
-fun <T,R> List<T>.maxBy2(func2:(List<R>)->R): R {
-    var max=
-    for (element in this) {
-        if()
-    }
+//fun <T,R> List<T>.maxBy2(func2:(List<R>)->R): R {
+   // var max
+   // for (element in this) {
+   //     if()
+   // }
 
-return max
-}
+//return max
+//}
 
 
 fun <T> List<T>.last2(): T {
@@ -111,15 +111,12 @@ fun <T> List<T>.all2(predicate: (T) -> Boolean): Boolean {
         val  result6 = heroes.all2{it.age<30}
         println(" all younger then 30: $result6")
 
-        val  result7 = heroes.maxBy2(it.age)
-        println(" all younger then 30: $result7")
+        //val  result7 = heroes.maxBy2(it.age)
+        //println(" all younger then 30: $result7")
 
 
-        val  p:Pair( MutableList<hero>, MutableList<hero>) = heroes.partition2{it.age<30}()
 
 
-        println(" the result of last   ${p}")
-        println(" the result of last  ${p.second.name}")
 
 
     }
