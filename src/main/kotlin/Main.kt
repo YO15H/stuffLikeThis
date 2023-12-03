@@ -1,7 +1,7 @@
 import java.util.function.BiPredicate
 
 
-
+//i changed it
 fun <T,R> List<T>.map2(func: (T) -> R): List<R> {
     val list1 = mutableListOf<R>()
     for(element in this) {
