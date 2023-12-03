@@ -10,14 +10,21 @@ fun <T,R> List<T>.map2(func: (T) -> R): List<R> {
     return list1
 }
 
-//fun <T,R> List<T>.maxBy2(func2:(List<R>)->R): R {
-   // var max
-   // for (element in this) {
-   //     if()
-   // }
+fun <T,R:Comparable<R>> List<T>.maxBy2(func2:(T)->R): R {
+    var list1=mutableListOf<R>()
 
-//return max
-//}
+    for (element in this) {
+    var element2 =func2(element)
+        list1.add(element2)
+    }
+    var max:R=list1.get(0)
+    for (element3 in list1) {
+        if(max<element3){
+           max=element3
+        }
+    }
+    return max
+}
 
 
 fun <T> List<T>.last2(predicate: ((T) -> Boolean)?=null): T {
@@ -33,7 +40,7 @@ fun <T> List<T>.last2(predicate: ((T) -> Boolean)?=null): T {
         }
 
     }
-    if(lastOne==null) return  throw NoSuchElementException() else return lastOne
+    if(lastOne==null)   throw NoSuchElementException() else return lastOne
 
 }
 fun <T> List<T>.lastOrNull2(predicate: (T) -> Boolean): T? {
@@ -46,17 +53,17 @@ fun <T> List<T>.lastOrNull2(predicate: (T) -> Boolean): T? {
     }
     return lastOne
 }
-    fun <T> List<T>.first2(predicate: ((T) -> Boolean)?=null ): T {
-        if(predicate==null){
-            return this[0]
-        }else{
+fun <T> List<T>.first2(predicate: ((T) -> Boolean)?=null ): T {
+    if(predicate==null){
+        return this[0]
+    }else{
             for (element in this) {
                 if (predicate(element)) {
                     return  element
                 }
             }
         }
-        return  throw NoSuchElementException()
+    throw NoSuchElementException()
 }
 fun <T> List<T>.firstOrNull2(predicate: (T) -> Boolean): T? {
 
@@ -140,8 +147,8 @@ fun <T> List<T>.all2(predicate: (T) -> Boolean): Boolean {
         val  result6 = heroes.all2{it.age<30}
         println(" all younger then 30: $result6")
 
-        //val  result7 = heroes.maxBy2(it.age)
-        //println(" all younger then 30: $result7")
+        val  result7 = heroes.maxBy2 { it.name }
+        println(" maxBy: $result7")
 
 
 
